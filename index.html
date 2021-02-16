@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="matter.js"></script>
+  <script>
+    let engine = Matter.Engine.create();
+    let render = Matter.render.create({
+      element: document.body,
+      engine:engine
+    });
+
+    let ground = Matter.body.rectangle(400, 600, 810, 60, { isStatic: true });
+    let boxA = Matter.body.rectangle(400, 200, 80, 80)
+    let boxB = Matter.body.rectangle(450, 50, 80, 80)
+
+    let mouse = Matter.Mouse.create(render.canvas);
+    let mouseConstraint = Matter.MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint:{
+        render:{ visible: false}
+      }
+    })
+
+    Matter.World.add(engine.world, [boxA, boxB, ground]);
+    Matter.engine.run(engine);
+    Matter.Render.run(render);
+  </script>
+  
+</body>
+</html>
